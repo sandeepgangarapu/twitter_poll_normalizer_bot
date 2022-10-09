@@ -25,7 +25,7 @@ def normalize_to_text(options):
     reply_text = ''
     for option in options:
       option['votes'] = option['votes']/total_votes
-      reply_text+=option['label']+ ' - '+ str(int(option['votes']*100))+ '%'+ '\n'
+      reply_text+=option['label']+ ' - '+ str(round(option['votes']*100,1))+ '%'+ '\n'
     return reply_text
 
 class Normalizer(tweepy.StreamingClient):
