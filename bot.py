@@ -16,17 +16,17 @@ sender = tweepy.Client(
 )
 
 def normalize_to_text(options):
-  options = options[:-1]
-  total_votes = 0
-  for option in options:
-    total_votes = total_votes + option['votes']
-  if total_votes == 0:
-    total_votes = 1
-  reply_text = ''
-  for option in options:
-    option['votes'] = option['votes']/total_votes
-    reply_text+=option['label']+ ' - '+ str(int(option['votes']*100))+ '%'+ '\n'
-  return reply_text
+    options = options[:-1]
+    total_votes = 0
+    for option in options:
+      total_votes = total_votes + option['votes']
+    if total_votes == 0:
+      total_votes = 1
+    reply_text = ''
+    for option in options:
+      option['votes'] = option['votes']/total_votes
+      reply_text+=option['label']+ ' - '+ str(int(option['votes']*100))+ '%'+ '\n'
+    return reply_text
 
 class Normalizer(tweepy.StreamingClient):
   
@@ -56,6 +56,6 @@ class Normalizer(tweepy.StreamingClient):
 
 streaming_client = Normalizer(bearer_token)
 streaming_client.delete_rules([i.id for i in streaming_client.get_rules()[0]])  # type: ignore
-streaming_client.add_rules(tweepy.StreamRule("@Poll_Normalizer"))
+streaming_client.add_rules(tweepy.StreamRule("@poll_normalizer"))
 print(streaming_client.get_rules())
 streaming_client.filter(tweet_fields = "referenced_tweets")
