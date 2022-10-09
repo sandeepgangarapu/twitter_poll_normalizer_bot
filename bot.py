@@ -51,11 +51,11 @@ class Normalizer(tweepy.StreamingClient):
       sender.create_tweet(text = text, in_reply_to_tweet_id = tweet.id)
       print(text)
     except:
-      raise
+      pass
 
 
 streaming_client = Normalizer(bearer_token)
 streaming_client.delete_rules([i.id for i in streaming_client.get_rules()[0]])  # type: ignore
 streaming_client.add_rules(tweepy.StreamRule("@poll_normalizer"))
 print(streaming_client.get_rules())
-streaming_client.filter(tweet_fields = "referenced_tweets")
+streaming_client.filter(tweet_fields="referenced_tweets")
